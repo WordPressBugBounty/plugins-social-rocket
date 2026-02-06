@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Social Rocket
  * Description: Social Sharing... to the Moon!
- * Version: 1.3.4
+ * Version: 1.3.4.2
  * Author: Social Rocket
  * Author URI: http://wpsocialrocket.com/
  *
  * Text Domain: social-rocket
  * Domain Path: /languages
  *
- * Copyright: © 2018-2024 Social Rocket. All rights reserved.
+ * Copyright: © 2018-2026 Social Rocket. All rights reserved.
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( function_exists( 'social_rocket_init' ) ) {
 	return; // Exit if already loaded
 }
 
-define( 'SOCIAL_ROCKET_VERSION', '1.3.4' );
+define( 'SOCIAL_ROCKET_VERSION', '1.3.4.2' );
 define( 'SOCIAL_ROCKET_DBVERSION', '5' );
 define( 'SOCIAL_ROCKET_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SOCIAL_ROCKET_FILE', __FILE__ );

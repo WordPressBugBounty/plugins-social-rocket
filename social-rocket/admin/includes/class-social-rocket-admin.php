@@ -417,7 +417,8 @@ class Social_Rocket_Admin {
 	/**
 	 * Outputs Click To Tweet settings page.
 	 *
-	 * @since 1.0.0
+	 * @version 1.3.4.1
+	 * @since   1.0.0
 	 */
 	public function admin_settings_page_click_to_tweet() {
 		#region admin_settings_page_click_to_tweet
@@ -647,6 +648,7 @@ class Social_Rocket_Admin {
 				<p style="text-align:right;">
 					<button type="button" id="social-rocket-settings-tweet-saved-settings-save" class="button-secondary" disabled="disabled"><?php _e( 'Save As New Style', 'social-rocket' ); ?></button>
 				</p>
+				<?php wp_nonce_field( 'social_rocket_save_style', 'social-rocket-save-style-nonce' ); ?>
 			</div>
 		</div>
 		<?php
@@ -5499,7 +5501,24 @@ class Social_Rocket_Admin {
 	
 	
 	public function tweet_settings_save() {
-	
+
+		$nonce = $this->_isset( $_POST['data']['nonce'] );
+		
+		if ( ! $nonce ) {
+			wp_die( 'You do not have permissions to do this.', null, array( 'response' => 400 ) );
+			return;
+		}
+		
+		if ( ! wp_verify_nonce( $_POST['data']['nonce'], 'social_rocket_save_style' ) ) {
+			wp_die( 'Nonce expired. Please reload page and try again.', null, array( 'response' => 400 ) );
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'You do not have the required permissions to save this data.', null, array( 'response' => 403 ) );
+			return;
+		}
+
 		$SR = Social_Rocket::get_instance();
 		
 		$data = $this->tweet_settings_process_post();

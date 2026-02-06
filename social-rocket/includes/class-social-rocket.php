@@ -1288,7 +1288,7 @@ class Social_Rocket {
 	 * Social_Rocket::maybe_insert_floating_buttons(), via the shortcode
 	 * [socialrocket-floating], or via the global function socal_rocket_floating().
 	 *
-	 * @version 1.3.3
+	 * @version 1.3.4.2
 	 * @since   1.0.0
 	 *
 	 * @param array $args {
@@ -1517,8 +1517,8 @@ class Social_Rocket {
 	
 		// begin button bar wrapper
 		$output = '<div id="social-rocket-floating-buttons"'
-					. ' class="' . $classes . '"'
-					. ' style="' . $styles . '"'
+					. ' class="' . esc_attr( $classes ) . '"'
+					. ' style="' . esc_attr( $styles ) . '"'
 					. '>';
 		
 		if ( $show_total === 'before' ) {
@@ -1708,7 +1708,7 @@ class Social_Rocket {
 	 * Social_Rocket::maybe_insert_inline_buttons(), via the shortcode
 	 * [socialrocket], or via the global function socal_rocket().
 	 *
-	 * @version 1.3.3
+	 * @version 1.3.4.2
 	 * @since   1.0.0
 	 *
 	 * @param array $args {
@@ -1930,7 +1930,7 @@ class Social_Rocket {
 		}
 		
 		// begin main wrapper div
-		$output .= '<div class="' . $classes . '">';
+		$output .= '<div class="' . esc_attr( $classes ) . '">';
 		
 		// heading text
 		if ( $heading > '' ) {
@@ -2181,7 +2181,8 @@ class Social_Rocket {
 	 * This function may be called by the shortcode [socialrocket-tweet],
 	 * or via the global function socal_rocket_tweet().
 	 *
-	 * @since 1.0.0
+	 * @version 1.3.4.2
+	 * @since   1.0.0
 	 *
 	 * @param array $args {
 	 *     Optional. An array of arguments.
@@ -2275,7 +2276,7 @@ class Social_Rocket {
 		}
 		
 		// begin click to tweet wrapper
-		$output .= '<div class="social-rocket-tweet' . ( $extra_classes ? ' ' . $extra_classes : '' ) . '">';
+		$output .= '<div class="social-rocket-tweet' . ( $extra_classes ? ' ' . esc_attr( $extra_classes ) : '' ) . '">';
 		
 		// begin anchor
 		$output .= '<a class="social-rocket-tweet-anchor" '

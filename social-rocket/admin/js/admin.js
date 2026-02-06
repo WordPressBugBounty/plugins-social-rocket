@@ -2572,7 +2572,8 @@
 			var name = $('#social-rocket-settings-tweet-saved-settings-name').val();
 			var postData = {
 				data: {
-					'name': name
+					'name': name,
+					'nonce': $('#social-rocket-save-style-nonce').val()
 				}
 			};
 			var key;

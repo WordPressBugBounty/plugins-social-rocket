@@ -3,9 +3,9 @@ Contributors: socialrocket
 Donate link: https://wpsocialrocket.com/
 Tags: social share, social buttons, social share buttons, social media, share counts, social sharing, click to tweet, social rocket, facebook share, social media share, pinterest description, social media sharing
 Requires at least: 4.4
-Tested up to: 6.5
+Tested up to: 6.9
 Requires PHP: 5.5
-Stable tag: 1.3.4
+Stable tag: 1.3.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,12 @@ Support is just a click away on [our website](https://wpsocialrocket.com/support
 
 
 == Changelog ==
+= 1.3.4.2 =
+* UPDATE: style changes required by wordpress.org.
+
+= 1.3.4.1 =
+* FIX: sanitization issues, nonce checking.
+
 = 1.3.4 =
 * FIX: sanitization issues with Click To Tweet settings.
 * UPDATE: update default Twitter branding to X branding.
