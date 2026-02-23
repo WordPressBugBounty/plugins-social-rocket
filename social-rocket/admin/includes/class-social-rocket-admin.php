@@ -3,16 +3,16 @@
 if ( ! defined('ABSPATH') ) { exit; }
 
 class Social_Rocket_Admin {
-
-    
+	
+	
 	protected static $instance = null;
-
-    
+	
+	
 	public static function get_instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
-
+		
 		return self::$instance;
 	}
 	
@@ -85,7 +85,7 @@ class Social_Rocket_Admin {
 	
 	// this will not alter $array in any way, but it may not be as convenient as $this->_isset() when dealing with multi-dimensional arrays --DG
 	public static function _issetarr( $array, $key, $default = null ) {
-	    return isset( $array[$key] ) ? $array[$key] : $default;
+		return isset( $array[$key] ) ? $array[$key] : $default;
 	}
 	
 	/*
@@ -285,7 +285,8 @@ class Social_Rocket_Admin {
 	/**
 	 * Outputs closing & footer code used by all settings pages.
 	 *
-	 * @since 1.0.0
+	 * @version 1.3.5
+	 * @since   1.0.0
 	 */
 	public function admin_settings_footer( $save_button = true ) {
 		#region admin_settings_footer
@@ -311,7 +312,7 @@ class Social_Rocket_Admin {
 					<p>&nbsp;</p>
 					' ); ?>
 					
-					<p class="description"><?php printf( __( 'Need help? <a href="%s" target="_blank">Read the Documentation</a> or <a href="%s" target="_blank">Visit our Support Site</a>.', 'social-rocket' ), 'https://docs.wpsocialrocket.com/', 'https://wpsocialrocket.com/support/?utm_source=Plugin&utm_content=settings_sidebar_help&utm_campaign=Free' ); ?></p>
+					<p class="description"><?php printf( __( 'Need help? <a href="%s" target="_blank">Read the Documentation</a> or <a href="%s" target="_blank">Visit our Support Site</a>.', 'social-rocket' ), 'https://wpsocialrocket.com/documentation/?utm_source=Plugin&utm_content=settings_sidebar_help&utm_campaign=Free', 'https://wpsocialrocket.com/support/?utm_source=Plugin&utm_content=settings_sidebar_help&utm_campaign=Free' ); ?></p>
 					<p class="description"><?php _e( 'Opening a support ticket? Get your System Information by clicking the button below:', 'social-rocket' ); ?></p>
 					<button type="button" id="social_rocket_show_system_info" class="button-secondary"><?php _e( 'Get System Info', 'social-rocket' ); ?></button>
 					<div id="social_rocket_system_info" style="display: none;">
@@ -327,7 +328,7 @@ class Social_Rocket_Admin {
 			
 			</div>
 			
-			<?php wp_nonce_field( 'social_rocket_settings' ); ?>
+			<?php wp_nonce_field( 'social_rocket_settings', 'social_rocket_settings_nonce' ); ?>
 			
 		</form>
 		
@@ -417,12 +418,12 @@ class Social_Rocket_Admin {
 	/**
 	 * Outputs Click To Tweet settings page.
 	 *
-	 * @version 1.3.4.1
+	 * @version 1.3.5
 	 * @since   1.0.0
 	 */
 	public function admin_settings_page_click_to_tweet() {
 		#region admin_settings_page_click_to_tweet
-	
+		
 		$this->admin_settings_post_actions();
 		
 		$this->admin_settings_header();
@@ -444,7 +445,7 @@ class Social_Rocket_Admin {
 		</h2>
 		
 		<p><?php _e( "Use the builder below to create and save Click to Tweet styles. When using the Click to Tweet button inside the page/post editor screen, you'll be able to select which style you'd like to display.", 'social-rocket' ); ?></p>
-		<p><?php printf( __( 'Our <a href="%s" target="_blank">documentation</a> explains the builder in more detail. Need help finding something? <a href="%s" target="_blank">Let us know</a>!', 'social-rocket' ), 'https://docs.wpsocialrocket.com/article/25-click-to-tweet', 'https://wpsocialrocket.com/support/?utm_source=Plugin&utm_content=settings_click_to_tweet&utm_campaign=Free' ); ?></p>
+		<p><?php printf( __( 'Our <a href="%s" target="_blank">documentation</a> explains the builder in more detail. Need help finding something? <a href="%s" target="_blank">Let us know</a>!', 'social-rocket' ), 'https://wpsocialrocket.com/documentation/settings/click-to-tweet/?utm_source=Plugin&utm_content=settings_click_to_tweet&utm_campaign=Free', 'https://wpsocialrocket.com/support/?utm_source=Plugin&utm_content=settings_click_to_tweet&utm_campaign=Free' ); ?></p>
 		
 		<div id="social-rocket-settings-tweet" class="social-rocket-settings-section">
 			<h3><?php _e( 'Style Builder', 'social-rocket' ); ?></h3>
@@ -621,15 +622,15 @@ class Social_Rocket_Admin {
 						?>
 						<tr>
 							<td>
-								<span class="social_rocket_tweet_saved_settings_name" data-id="<?php echo $id; ?>"><?php echo ( $saved_setting['name'] > '' ? $saved_setting['name'] : '(no name)' ); ?></span>
+								<span class="social_rocket_tweet_saved_settings_name" data-id="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $saved_setting['name'] > '' ? $saved_setting['name'] : '(no name)' ); ?></span>
 							</td>
 							<td>
-								<span class="description"><?php echo $id; ?></span>
+								<span class="description"><?php echo esc_html( $id ); ?></span>
 							</td>
 							<td>
-								<button type="button" class="social-rocket-settings-tweet-saved-settings-load button button-small" data-id="<?php echo $id; ?>"><?php _e( 'Load', 'social-rocket' ); ?></button> 
+								<button type="button" class="social-rocket-settings-tweet-saved-settings-load button button-small" data-id="<?php echo esc_attr( $id ); ?>"><?php _e( 'Load', 'social-rocket' ); ?></button> 
 								<?php if ( $id !== 'default' ): ?>
-								<button type="button" class="social-rocket-settings-tweet-saved-settings-delete button button-small" data-id="<?php echo $id; ?>"><?php _e( 'Delete', 'social-rocket' ); ?></button>
+								<button type="button" class="social-rocket-settings-tweet-saved-settings-delete button button-small" data-id="<?php echo esc_attr( $id ); ?>"><?php _e( 'Delete', 'social-rocket' ); ?></button>
 								<?php endif; ?>
 							</td>
 						</tr>
@@ -639,6 +640,7 @@ class Social_Rocket_Admin {
 				?>
 				</tbody>
 			</table>
+			<?php wp_nonce_field( 'social_rocket_tweet_settings', 'social_rocket_tweet_settings_nonce' ); ?>
 		</div>
 		
 		<div id="social-rocket-settings-save-as-modal" style="display: none;">
@@ -648,7 +650,6 @@ class Social_Rocket_Admin {
 				<p style="text-align:right;">
 					<button type="button" id="social-rocket-settings-tweet-saved-settings-save" class="button-secondary" disabled="disabled"><?php _e( 'Save As New Style', 'social-rocket' ); ?></button>
 				</p>
-				<?php wp_nonce_field( 'social_rocket_save_style', 'social-rocket-save-style-nonce' ); ?>
 			</div>
 		</div>
 		<?php
@@ -664,7 +665,7 @@ class Social_Rocket_Admin {
 	 */
 	public function admin_settings_page_floating_buttons() {
 		#region admin_settings_page_floating_buttons
-	
+		
 		$this->admin_settings_post_actions();
 		
 		$this->admin_settings_header();
@@ -1962,7 +1963,7 @@ class Social_Rocket_Admin {
 		
 		<h4><?php _e( 'Welcome to Social Rocket! We’re so glad you’re here!', 'social-rocket' ); ?></h4>
 		<p><?php _e( 'Use the tiles below to view/change the way Social Rocket looks and behaves. There are many settings and options available to customize your sharing buttons.', 'social-rocket' ); ?></p>
-		<p><?php printf( __( 'Our <a href="%s" target="_blank">documentation</a> explains each setting in greater detail. Need help finding something? <a href="%s" target="_blank">Let us know</a>!', 'social-rocket' ), 'https://docs.wpsocialrocket.com/', 'https://wpsocialrocket.com/support/?utm_source=Plugin&utm_content=settings_get_started&utm_campaign=Free' ); ?></p>
+		<p><?php printf( __( 'Our <a href="%s" target="_blank">documentation</a> explains each setting in greater detail. Need help finding something? <a href="%s" target="_blank">Let us know</a>!', 'social-rocket' ), 'https://wpsocialrocket.com/documentation/?utm_source=Plugin&utm_content=settings_get_started&utm_campaign=Free', 'https://wpsocialrocket.com/support/?utm_source=Plugin&utm_content=settings_get_started&utm_campaign=Free' ); ?></p>
 		
 		<p>&nbsp;</p>
 		
@@ -2035,7 +2036,7 @@ class Social_Rocket_Admin {
 	 */
 	public function admin_settings_page_inline_buttons() {
 		#region admin_settings_page_inline_buttons
-	
+		
 		$this->admin_settings_post_actions();
 		
 		$this->admin_settings_header();
@@ -3337,7 +3338,7 @@ class Social_Rocket_Admin {
 	 */
 	public function admin_settings_page_license_keys() {
 		#region admin_settings_page_license_keys
-	
+		
 		$this->admin_settings_post_actions();
 		
 		$this->admin_settings_header();
@@ -3368,7 +3369,7 @@ class Social_Rocket_Admin {
 			<h4><?php _e( 'Instructions', 'social-rocket' ); ?></h4>
 			<p>
 				<?php printf( __( 'Before you can enter your license key, you must install and activate the product first.  You can do this from your <a href="%s" target="_blank">Plugins</a> page.', 'social-rocket' ), admin_url( 'plugins.php' ) ); ?><br />
-				<?php printf( __( 'For step-by-step instructions, please read our FAQ page <a href="%s" target="_blank">How do I install and activate Social Rocket pro products?</a>', 'social-rocket' ), 'https://docs.wpsocialrocket.com/article/19-activating-and-deactivating-license-keys?utm_source=Plugin&utm_content=license_keys&utm_campaign=Free' ); ?><br /><br />
+				<?php printf( __( 'For step-by-step instructions, please read our FAQ page <a href="%s" target="_blank">How do I install and activate Social Rocket pro products?</a>', 'social-rocket' ), 'https://wpsocialrocket.com/documentation/getting-started/activating-and-deactivating-license-keys/?utm_source=Plugin&utm_content=license_keys&utm_campaign=Free' ); ?><br /><br />
 				<?php _e( 'Once your products are installed and activated, you can activate your license keys by doing the following:', 'social-rocket' ); ?><br /><br />
 				<?php _e( '1. Copy the license key for your product and paste it into the corresponding field below.', 'social-rocket' ); ?><br />
 				<?php _e( '2. Click the <strong>Activate License</strong> button.', 'social-rocket' ); ?><br />
@@ -3404,7 +3405,8 @@ class Social_Rocket_Admin {
 	/**
 	 * Outputs Settings settings page.
 	 *
-	 * @since 1.0.0
+	 * @version 1.3.5
+	 * @since   1.0.0
 	 */
 	public function admin_settings_page_settings() {
 		#region admin_settings_page_settings
@@ -3586,7 +3588,7 @@ class Social_Rocket_Admin {
 					</th>
 					<td>
 						<input type="text" name="social_rocket_facebook_access_token" id="social_rocket_facebook_access_token" value="<?php echo $this->_isset( $SR->settings['facebook']['access_token'] ); ?>" />
-						<p class="description"><?php printf( __( 'In order to get accurate share counts, Facebook requires an API access token.  Enter your access token here.  For help getting your access token, <a href="%s" target="_blank">see our website for more info</a>.', 'social-rocket' ), 'https://docs.wpsocialrocket.com/article/66-facebook-access-token' ); ?></p>
+						<p class="description"><?php printf( __( 'In order to get accurate share counts, Facebook requires an API access token.  Enter your access token here.  For help getting your access token, <a href="%s" target="_blank">see our website for more info</a>.', 'social-rocket' ), 'https://wpsocialrocket.com/documentation/settings/facebook-access-token/?utm_source=Plugin&utm_content=settings_social_extras&utm_campaign=Free' ); ?></p>
 					</td>
 				</tr>
 			</table>
@@ -3706,7 +3708,7 @@ class Social_Rocket_Admin {
 						<p><strong><?php _e( 'Recalculate All Count Data', 'social-rocket' ); ?></strong></p>
 						<p><?php _e( 'This will reset all your share count data and begin recalculating from scratch.', 'social-rocket' ); ?></p>
 						<p><button type="button" id="social-rocket-settings-recalc-all" class="button-primary"><?php _e( 'Recalculate all counts', 'social-rocket' ); ?></button></p>
-						<?php wp_nonce_field( 'social_rocket_recalc_all', 'social-rocket-settings-recalc-nonce' ); ?>
+						<?php wp_nonce_field( 'social_rocket_recalc_all', 'social_rocket_settings_recalc_nonce' ); ?>
 					</div>
 				</div>
 				<div class="sr-grid__col sr-grid__col--1-of-2">
@@ -3729,13 +3731,19 @@ class Social_Rocket_Admin {
 	}
 	
 	
+	/**
+	 * Handle POST actions on settings page.
+	 *
+	 * @version 1.3.5
+	 * @since   1.0.0
+	 */
 	public function admin_settings_post_actions() {
 		
 		global $wpdb;
 		
 		if (
-			! isset( $_POST['_wpnonce'] ) ||
-			! wp_verify_nonce( $_POST['_wpnonce'], 'social_rocket_settings' )
+			! isset( $_POST['social_rocket_settings_nonce'] ) ||
+			! wp_verify_nonce( $_POST['social_rocket_settings_nonce'], 'social_rocket_settings' )
 		) {
 			return;
 		}
@@ -3746,7 +3754,7 @@ class Social_Rocket_Admin {
 		
 		// if we just POSTed, do we need to do something?
 		if ( isset( $_POST['social_rocket_settings_import'] ) ) {
-		
+			
 			// import settings
 			if( current_user_can( 'manage_options' ) ) {
 			
@@ -3786,16 +3794,16 @@ class Social_Rocket_Admin {
 				echo '<div class="notice notice-' . $status . '"><p>' . $message . '</p></div>';
 				
 			}
-		
+			
 		} elseif ( isset( $_POST['social_rocket_settings_restore'] ) ) {
-		
+			
 			// restore settings & data
 			if( current_user_can( 'manage_options' ) ) {
-			
+				
 				set_time_limit(0);
 				$status = 'error';
 				$message = '';
-			
+				
 				if(
 					isset( $_FILES['social_rocket_settings_restore_file']['name'] ) &&
 					substr( strtolower( $_FILES['social_rocket_settings_restore_file']['name'] ), -5 ) === '.json'
@@ -3870,9 +3878,9 @@ class Social_Rocket_Admin {
 				echo '<div class="notice notice-' . $status . '"><p>' . $message . '</p></div>';
 				
 			}
-		
+			
 		} elseif ( isset( $_POST['social_rocket_reset_settings'] ) ) {
-		
+			
 			// reset settings
 			if( current_user_can( 'manage_options' ) ) {
 			
@@ -3891,7 +3899,7 @@ class Social_Rocket_Admin {
 				echo '<div class="notice notice-' . $status . '"><p>' . $message . '</p></div>';
 				
 			}
-		
+			
 		} elseif ( isset( $_POST['social_rocket_settings_reset_queue'] ) ) {
 			
 			// clear background queue
@@ -3909,7 +3917,7 @@ class Social_Rocket_Admin {
 			}
 			
 		} elseif ( isset( $_POST['social_rocket_save'] ) ) {
-		
+			
 			// save settings
 			
 			// first, do a recursive stripslashes() on $_POST to make sure it's clean
@@ -4428,54 +4436,54 @@ class Social_Rocket_Admin {
 	
 	
 	public function attachment_fields_display( $form_fields, $post ) {
-	    
-	    if ( strpos( $post->post_mime_type, 'image' ) === false ) {
-	    	return $form_fields;
+		
+		if ( strpos( $post->post_mime_type, 'image' ) === false ) {
+			return $form_fields;
 		}
-
-	    $pinterest_description = get_post_meta( $post->ID, 'social_rocket_pinterest_description', true );
+		
+		$pinterest_description = get_post_meta( $post->ID, 'social_rocket_pinterest_description', true );
 		
 		$form_fields['social_rocket_settings_heading'] = array(
-	    	'input'	=> 'html',
+			'input'	=> 'html',
 			'html'  => ' ',
-	        'label' => '<h2>' . __( 'Social Rocket Settings', 'social-rocket' ) . '</h2>',
-	    );
-
-	    $form_fields['social_rocket_pinterest_description'] = array(
-	    	'input'	=> 'textarea',
-	        'value' => $pinterest_description ? $pinterest_description : '',
-	        'label' => __( 'Pinterest<br />Description', 'social-rocket' ),
-	    );
+			'label' => '<h2>' . __( 'Social Rocket Settings', 'social-rocket' ) . '</h2>',
+		);
 		
-	    $form_fields['srp_pinterest_pin_title'] = array(
-	    	'input'	=> 'html',
-	        'html'  => '<input type="text" disabled="disabled" />',
-	        'label' => __( '(PRO) Pinterest<br />Title', 'social-rocket' ),
-	    );
+		$form_fields['social_rocket_pinterest_description'] = array(
+			'input'	=> 'textarea',
+			'value' => $pinterest_description ? $pinterest_description : '',
+			'label' => __( 'Pinterest<br />Description', 'social-rocket' ),
+		);
 		
-	    $form_fields['srp_pinterest_pin_id'] = array(
-	    	'input'	=> 'html',
-	        'html'  => '<input type="text" disabled="disabled" />',
-	        'label' => __( '(PRO) Pinterest<br />Re-pin ID', 'social-rocket' ),
-	    );
+		$form_fields['srp_pinterest_pin_title'] = array(
+			'input'	=> 'html',
+			'html'  => '<input type="text" disabled="disabled" />',
+			'label' => __( '(PRO) Pinterest<br />Title', 'social-rocket' ),
+		);
 		
-	    $form_fields['srp_pinterest_allow_pinning'] = array(
-	    	'input'	=> 'html',
+		$form_fields['srp_pinterest_pin_id'] = array(
+			'input'	=> 'html',
+			'html'  => '<input type="text" disabled="disabled" />',
+			'label' => __( '(PRO) Pinterest<br />Re-pin ID', 'social-rocket' ),
+		);
+		
+		$form_fields['srp_pinterest_allow_pinning'] = array(
+			'input'	=> 'html',
 			'html'  => '<input type="checkbox" checked="checked" disabled="disabled" />',
-	        'label' => __( '(PRO) Allow Image<br />to be Pinned', 'social-rocket' ),
-	    );
-
-	    return $form_fields;
-
+			'label' => __( '(PRO) Allow Image<br />to be Pinned', 'social-rocket' ),
+		);
+		
+		return $form_fields;
+		
 	}
 	
 	
 	public function attachment_fields_js_data( $response, $attachment, $meta ) {
-
+		
 		$response['social_rocket_pinterest_description'] = esc_attr( get_post_meta( $attachment->ID, 'social_rocket_pinterest_description', true ) );
-
+		
 		return $response;
-
+		
 	}
 	
 	
@@ -4494,14 +4502,14 @@ class Social_Rocket_Admin {
 		
 		if (
 			$pagenow === 'admin.php' && isset( $_GET['page'] ) &&
-		    in_array( $_GET['page'], array( 'social_rocket_inline_buttons', 'social_rocket_floating_buttons', 'social_rocket_click_to_tweet' ) )
+			in_array( $_GET['page'], array( 'social_rocket_inline_buttons', 'social_rocket_floating_buttons', 'social_rocket_click_to_tweet' ) )
 		) {
 			wp_enqueue_script( 'thickbox' );
 		}
 		
 		wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( 'jquery-ui-core' );
-        wp_enqueue_script( 'jquery-ui-sortable' );
+		wp_enqueue_script( 'jquery-ui-core' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'social-rocket-admin', plugin_dir_url( dirname( __FILE__ ) ) .'js/admin.js', array( 'jquery', 'wp-color-picker' ), SOCIAL_ROCKET_VERSION, true );
 		
 		wp_localize_script(
@@ -4566,7 +4574,7 @@ class Social_Rocket_Admin {
 	
 	
 	public function enqueue_styles() {
-	
+		
 		global $pagenow;
 		$SR = Social_Rocket::get_instance();
 		
@@ -4582,7 +4590,7 @@ class Social_Rocket_Admin {
 		
 		if (
 			$pagenow === 'admin.php' && isset( $_GET['page'] ) &&
-		    in_array( $_GET['page'], array( 'social_rocket_inline_buttons', 'social_rocket_floating_buttons', 'social_rocket_click_to_tweet' ) )
+			in_array( $_GET['page'], array( 'social_rocket_inline_buttons', 'social_rocket_floating_buttons', 'social_rocket_click_to_tweet' ) )
 		) {
 			wp_enqueue_style( 'thickbox' );
 		}
@@ -4612,11 +4620,11 @@ class Social_Rocket_Admin {
 		
 		// Get browser info
 		$browser = new Browser();
-
+		
 		// Get theme info
 		$theme_data = wp_get_theme();
 		$theme      = $theme_data->Name . ' ' . $theme_data->Version;
-
+		
 		// Try to identify the hosting provider
 		if( defined( 'WPE_APIKEY' ) ) {
 			$host = 'WP Engine';
@@ -4643,20 +4651,20 @@ class Social_Rocket_Admin {
 		} else {
 			$host = 'DBH: ' . DB_HOST . ', SRV: ' . $_SERVER['SERVER_NAME'];
 		}
-
+		
 		$return  = '### Begin System Info ###' . "\n\n";
-
+		
 		// Start with the basics...
 		$return .= '/////-- Site Info' . "\n\n";
 		$return .= 'Site URL:                 ' . site_url() . "\n";
 		$return .= 'Home URL:                 ' . home_url() . "\n";
 		$return .= 'Multisite:                ' . ( is_multisite() ? 'Yes' : 'No' ) . "\n";
 		$return .= 'Host:                     ' . $host . "\n\n";
-
+		
 		// The local user's browser information, handled by the Browser class
 		$return .= "\n" . '/////-- User Browser' . "\n\n";
 		$return .= wp_strip_all_tags( $browser ) . "\n\n";
-
+		
 		// WordPress configuration
 		$return .= "\n" . '/////-- WordPress Configuration' . "\n\n";
 		$return .= 'Version:                  ' . get_bloginfo( 'version' ) . "\n";
@@ -4664,7 +4672,7 @@ class Social_Rocket_Admin {
 		$return .= 'Permalink Structure:      ' . ( get_option( 'permalink_structure' ) ? get_option( 'permalink_structure' ) : 'Default' ) . "\n";
 		$return .= 'Active Theme:             ' . $theme . "\n";
 		$return .= 'Show On Front:            ' . get_option( 'show_on_front' ) . "\n";
-
+		
 		// Only show page specs if frontpage is set to 'page'
 		if( get_option( 'show_on_front' ) == 'page' ) {
 			$front_page_id = get_option( 'page_on_front' );
@@ -4672,12 +4680,12 @@ class Social_Rocket_Admin {
 			$return .= 'Page On Front:            ' . ( $front_page_id != 0 ? get_the_title( $front_page_id ) . ' (#' . $front_page_id . ')' : 'Unset' ) . "\n";
 			$return .= 'Page For Posts:           ' . ( $blog_page_id != 0 ? get_the_title( $blog_page_id ) . ' (#' . $blog_page_id . ')' : 'Unset' ) . "\n";
 		}
-
+		
 		$return .= 'Table Prefix:             ' . 'Length: ' . strlen( $wpdb->prefix ) . '   Status: ' . ( strlen( $wpdb->prefix ) > 16 ? 'ERROR: Too long' : 'Acceptable' ) . "\n";
 		$return .= 'WP_DEBUG:                 ' . ( defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' : 'Disabled' : 'Not set' ) . "\n";
 		$return .= 'Memory Limit:             ' . WP_MEMORY_LIMIT . "\n";
 		$return .= 'Registered Post Status:   ' . implode( ', ', get_post_stati() ) . "\n\n";
-
+		
 		// Social Rocket configuration
 		$plugin_data = get_plugin_data( SOCIAL_ROCKET_PATH . 'social-rocket.php', false );
 		
@@ -4689,7 +4697,7 @@ class Social_Rocket_Admin {
 				$settings[$sensitive_info] = empty( $settings[$sensitive_info] ) ? '(not set)' : '(set)';
 			}
 		}
-
+		
 		$return .= "\n" . '/////-- Social Rocket Configuration' . "\n\n";
 		$return .= 'Version:                  ' . $plugin_data['Version'] . "\n";
 		$return .= 'Settings:' . "\n";
@@ -4709,10 +4717,10 @@ class Social_Rocket_Admin {
 			$return .= "(no error)\n";
 		}
 		$return .= "\n";
-
+		
 		// Get plugins that have an update
 		$updates = get_plugin_updates();
-
+		
 		// Must-use plugins
 		// NOTE: MU plugins can't show updates!
 		$muplugins = get_mu_plugins();
@@ -4722,7 +4730,7 @@ class Social_Rocket_Admin {
 				$return .= $plugin_data['Name'] . ': ' . $plugin_data['Version'] . "\n";
 			}
 		}
-
+		
 		// WordPress active plugins
 		$return .= "\n" . '/////-- WordPress Active Plugins' . "\n\n";
 		$plugins = get_plugins();
@@ -4735,7 +4743,7 @@ class Social_Rocket_Admin {
 			$return .= $plugin['Name'] . ': ' . $plugin['Version'] . $update . "\n";
 		}
 		$return .= "\n";
-
+		
 		// WordPress inactive plugins
 		$return .= "\n" . '/////-- WordPress Inactive Plugins' . "\n\n";
 		foreach ( $plugins as $plugin_path => $plugin ) {
@@ -4746,7 +4754,7 @@ class Social_Rocket_Admin {
 			$return .= $plugin['Name'] . ': ' . $plugin['Version'] . $update . "\n";
 		}
 		$return .= "\n";
-
+		
 		if( is_multisite() ) {
 			// WordPress Multisite active plugins
 			$return .= "\n" . '/////-- Network Active Plugins' . "\n\n";
@@ -4763,13 +4771,13 @@ class Social_Rocket_Admin {
 			}
 			$return .= "\n";
 		}
-
+		
 		// Server configuration (really just versioning)
 		$return .= "\n" . '/////-- Webserver Configuration' . "\n\n";
 		$return .= 'PHP Version:              ' . PHP_VERSION . "\n";
 		$return .= 'MySQL Version:            ' . $wpdb->db_version() . "\n";
 		$return .= 'Webserver Info:           ' . $_SERVER['SERVER_SOFTWARE'] . "\n\n";
-
+		
 		// PHP configs... now we're getting to the important stuff
 		$return .= "\n" . '/////-- PHP Configuration' . "\n\n";
 		$return .= 'Safe Mode:                ' . ( ini_get( 'safe_mode' ) ? 'Enabled' : 'Disabled' . "\n" );
@@ -4780,7 +4788,7 @@ class Social_Rocket_Admin {
 		$return .= 'Time Limit:               ' . ini_get( 'max_execution_time' ) . "\n";
 		$return .= 'Max Input Vars:           ' . ini_get( 'max_input_vars' ) . "\n";
 		$return .= 'Display Errors:           ' . ( ini_get( 'display_errors' ) ? 'On (' . ini_get( 'display_errors' ) . ')' : 'N/A' ) . "\n\n";
-
+		
 		// PHP extensions and such
 		$return .= "\n" . '/////-- PHP Extensions' . "\n\n";
 		$return .= 'cURL:                     ' . ( function_exists( 'curl_init' ) ? 'Supported' : 'Not Supported' ) . "\n";
@@ -4788,11 +4796,11 @@ class Social_Rocket_Admin {
 		$return .= 'SOAP Client:              ' . ( class_exists( 'SoapClient' ) ? 'Installed' : 'Not Installed' ) . "\n";
 		$return .= 'Suhosin:                  ' . ( extension_loaded( 'suhosin' ) ? 'Installed' : 'Not Installed' ) . "\n";
 		$return .= 'Mbstring:                 ' . ( extension_loaded( 'mbstring' ) ? 'Installed' : 'Not Installed' ) . "\n\n";
-
+		
 		// Session stuff
 		$return .= "\n" . '/////-- Session Configuration' . "\n\n";
 		$return .= 'Session:                  ' . ( isset( $_SESSION ) ? 'Enabled' : 'Disabled' ) . "\n";
-
+		
 		// The rest of this is only relevant is session is enabled
 		if( isset( $_SESSION ) ) {
 			$return .= 'Session Name:             ' . esc_html( ini_get( 'session.name' ) ) . "\n";
@@ -4801,11 +4809,11 @@ class Social_Rocket_Admin {
 			$return .= 'Use Cookies:              ' . ( ini_get( 'session.use_cookies' ) ? 'On' : 'Off' ) . "\n";
 			$return .= 'Use Only Cookies:         ' . ( ini_get( 'session.use_only_cookies' ) ? 'On' : 'Off' ) . "\n";
 		}
-
+		
 		$return = apply_filters( 'social_rocket_system_info', $return );
-
+		
 		$return .= "\n" . '### End System Info ###';
-
+		
 		return $return;
 	}
 	
@@ -4848,7 +4856,7 @@ class Social_Rocket_Admin {
 				'social-rocket-usermetas'  => $usermetas,
 			);
 			$output = apply_filters( 'social_rocket_backup_output', $output );
-
+			
 			if ( $return ) {
 				return json_encode( $output );
 			}
@@ -4857,7 +4865,7 @@ class Social_Rocket_Admin {
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=social-rocket-backup-' . date( 'Y-m-d' ) . '-' . preg_replace( '/[^a-z0-9]+/', '-', strtolower( site_url() ) ) . '.json' );
 			header( 'Expires: 0' );
-
+			
 			echo json_encode( $output );
 			exit;
 			
@@ -4883,12 +4891,12 @@ class Social_Rocket_Admin {
 			
 			$SR = Social_Rocket::get_instance();
 			$output = apply_filters( 'social_rocket_settings_export_output', array( 'social-rocket' => $SR->settings ) );
-
+			
 			nocache_headers();
 			header( 'Content-Type: application/json; charset=utf-8' );
 			header( 'Content-Disposition: attachment; filename=social-rocket-settings-export-' . date( 'Y-m-d' ) . '.json' );
 			header( 'Expires: 0' );
-
+			
 			echo json_encode( $output );
 			exit;
 			
@@ -4898,7 +4906,7 @@ class Social_Rocket_Admin {
 	
 	public function metabox_display() {
 		#region metabox_display
-	
+		
 		if ( version_compare( get_bloginfo( 'version' ), '3.5', '>=' ) ) {
 			wp_enqueue_media();
 		} else {
@@ -5043,7 +5051,7 @@ class Social_Rocket_Admin {
 	
 	
 	public function metabox_save( $post_id ) {
-
+		
 		if ( ! isset( $_REQUEST['_social_rocket_metabox'] ) ) {
 			return;
 		}
@@ -5052,7 +5060,7 @@ class Social_Rocket_Admin {
 		if ( ! wp_verify_nonce( $nonce, 'social_rocket_metabox' ) ) {
 			return;
 		}
-
+		
 		$postmetas = array(
 			'social_rocket_og_description'                       => sanitize_text_field( $this->_isset( $_REQUEST['social_rocket_og_description'] ) ),
 			'social_rocket_og_image'                             => sanitize_text_field( $this->_isset( $_REQUEST['social_rocket_og_image'] ) ),
@@ -5073,7 +5081,7 @@ class Social_Rocket_Admin {
 		}
 		
 		do_action( 'social_rocket_metabox_save', $post_id );
-
+		
 	}
 	
 	
@@ -5113,7 +5121,7 @@ class Social_Rocket_Admin {
 		<div id="social_rocket_metabox" class="postbox social-rocket-taxonomy-metabox">
 		<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Social Rocket Settings</span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class="hndle ui-sortable-handle" style="cursor:pointer;"><span><?php _e( 'Social Rocket Settings', 'social-rocket' ); ?></span></h2>
 		<div class="inside">
-
+		
 		<input type="hidden" name="_social_rocket_metabox" value="<?php echo $nonce; ?>" />
 		<input type="hidden" name="social_rocket_edited_taxonomy" value="<?php echo $term_id; ?>" />
 		
@@ -5241,7 +5249,7 @@ class Social_Rocket_Admin {
 	
 	
 	public function taxonomy_metabox_save() {
-	
+		
 		if ( ! isset ( $_REQUEST['social_rocket_edited_taxonomy'] ) ) {
 			return;
 		}
@@ -5250,7 +5258,7 @@ class Social_Rocket_Admin {
 		if ( ! wp_verify_nonce( $nonce, 'social_rocket_metabox' ) ) {
 			return;
 		}
-
+		
 		$termmetas = array(
 			'social_rocket_og_description'                       => sanitize_text_field( $this->_isset( $_REQUEST['social_rocket_og_description'] ) ),
 			'social_rocket_og_image'                             => sanitize_text_field( $this->_isset( $_REQUEST['social_rocket_og_image'] ) ),
@@ -5308,7 +5316,7 @@ class Social_Rocket_Admin {
 			return;
 		}
 		
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'social_rocket_recalc_all' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'social_rocket_recalc_all' ) ) {
 			wp_die( 'Nonce expired. Please reload page and try again.', null, array( 'response' => 400 ) );
 			return;
 		}
@@ -5319,17 +5327,40 @@ class Social_Rocket_Admin {
 		$response = array(
 			'status' => 'success',
 		);
-	
+		
 		echo json_encode( $response );
 		wp_die();
 	}
 	
 	
+	/**
+	 * AJAX handler for Delete action on Tweet Settings page.
+	 *
+	 * @version 1.3.5
+	 * @since   1.0.0
+	 */
 	public function tweet_settings_delete() {
-	
+		
+		$nonce = $this->_isset( $_POST['data']['nonce'] );
+		
+		if ( ! $nonce ) {
+			wp_die( 'You do not have permissions to do this.', null, array( 'response' => 400 ) );
+			return;
+		}
+		
+		if ( ! wp_verify_nonce( $nonce, 'social_rocket_tweet_settings' ) ) {
+			wp_die( 'Nonce expired. Please reload page and try again.', null, array( 'response' => 400 ) );
+			return;
+		}
+		
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'You do not have the required permissions.', null, array( 'response' => 403 ) );
+			return;
+		}
+		
 		$SR = Social_Rocket::get_instance();
 		
-		$id = sanitize_text_field( $this->_isset( $_POST['id'] ) );
+		$id = sanitize_key( $this->_isset( $_POST['id'] ) );
 		
 		if ( ! $id ) {
 			wp_die( 'ID not found', null, array( 'response' => 400 ) );
@@ -5352,16 +5383,16 @@ class Social_Rocket_Admin {
 	
 	
 	/**
-	 * Load saved Click To Tweet settings
+	 * AJAX handler for Load action on Tweet Settings page.
 	 *
+	 * @version 1.3.5
 	 * @since   1.0.0
-	 * @version 1.3.4
 	 */
 	public function tweet_settings_load() {
 	
 		$SR = Social_Rocket::get_instance();
 		
-		$id = sanitize_text_field( $this->_isset( $_GET['id'] ) );
+		$id = sanitize_key( $this->_isset( $_GET['id'] ) );
 		
 		if ( ! $id ) {
 			wp_die( 'ID not found', null, array( 'response' => 400 ) );
@@ -5500,8 +5531,14 @@ class Social_Rocket_Admin {
 	}
 	
 	
+	/**
+	 * AJAX handler for Save As New action on Tweet Settings page.
+	 *
+	 * @version 1.3.5
+	 * @since   1.0.0
+	 */
 	public function tweet_settings_save() {
-
+		
 		$nonce = $this->_isset( $_POST['data']['nonce'] );
 		
 		if ( ! $nonce ) {
@@ -5509,16 +5546,16 @@ class Social_Rocket_Admin {
 			return;
 		}
 		
-		if ( ! wp_verify_nonce( $_POST['data']['nonce'], 'social_rocket_save_style' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'social_rocket_tweet_settings' ) ) {
 			wp_die( 'Nonce expired. Please reload page and try again.', null, array( 'response' => 400 ) );
 			return;
 		}
-
+		
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( 'You do not have the required permissions to save this data.', null, array( 'response' => 403 ) );
 			return;
 		}
-
+		
 		$SR = Social_Rocket::get_instance();
 		
 		$data = $this->tweet_settings_process_post();
@@ -5542,17 +5579,34 @@ class Social_Rocket_Admin {
 	
 	
 	/**
-	 * Update saved Click To Tweet settings
+	 * AJAX handler for Save (update) action on Tweet Settings page.
 	 *
+	 * @version 1.3.5
 	 * @since   1.0.0
-	 * @version 1.3.4
 	 */
 	public function tweet_settings_update() {
-	
+		
+		$nonce = $this->_isset( $_POST['data']['nonce'] );
+		
+		if ( ! $nonce ) {
+			wp_die( 'You do not have permissions to do this.', null, array( 'response' => 400 ) );
+			return;
+		}
+		
+		if ( ! wp_verify_nonce( $nonce, 'social_rocket_tweet_settings' ) ) {
+			wp_die( 'Nonce expired. Please reload page and try again.', null, array( 'response' => 400 ) );
+			return;
+		}
+		
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'You do not have the required permissions.', null, array( 'response' => 403 ) );
+			return;
+		}
+		
 		$SR = Social_Rocket::get_instance();
 		
 		$data = $this->tweet_settings_process_post();
-		$id   = sanitize_text_field( $this->_isset( $_POST['id'] ) );
+		$id   = sanitize_key( $this->_isset( $_POST['id'] ) );
 		
 		if ( ! $id ) {
 			wp_die( 'ID not found', null, array( 'response' => 400 ) );
@@ -5569,7 +5623,7 @@ class Social_Rocket_Admin {
 			'status' => 'success',
 			'id'     => $id,
 		);
-	
+		
 		echo json_encode( $response );
 		wp_die();
 		
@@ -5606,7 +5660,7 @@ class Social_Rocket_Admin {
 	
 	
 	public function user_profile_fields_save( $user_id ) {
-
+		
 		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 			return false;
 		}
@@ -5627,8 +5681,8 @@ class Social_Rocket_Admin {
 		do_action( 'social_rocket_user_profile_fields_save', $user_id );
 		
 	}
-
-
+	
+	
 	public function validate_settings() {
 	
 		global $wpdb;

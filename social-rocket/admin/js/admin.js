@@ -2531,7 +2531,8 @@
 				var postData = {
 					id: id,
 					data: {
-						'name': name
+						'name': name,
+						'nonce': $( '#social_rocket_tweet_settings_nonce' ).val()
 					}
 				};
 				var key;
@@ -2573,7 +2574,7 @@
 			var postData = {
 				data: {
 					'name': name,
-					'nonce': $('#social-rocket-save-style-nonce').val()
+					'nonce': $('#social_rocket_tweet_settings_nonce').val()
 				}
 			};
 			var key;
@@ -2679,7 +2680,10 @@
 			if ( confirm( socialRocketAdmin.i18n.confirm ) ) {
 				var $row = $(this).closest('tr');
 				var postData = {
-					id: $(this).data('id')
+					id: $(this).data('id'),
+					data: {
+						'nonce': $( '#social_rocket_tweet_settings_nonce' ).val()
+					}
 				};
 				$row.find('button').prop('disabled', true);
 				$.ajax( ajaxurl + '?action=social_rocket_tweet_settings_delete', {
@@ -2763,7 +2767,7 @@
 			if ( confirm( socialRocketAdmin.i18n.confirm ) ) {
 				var $this = $(this);
 				var postData = {
-					nonce: $('#social-rocket-settings-recalc-nonce').val()
+					nonce: $('#social_rocket_settings_recalc_nonce').val()
 				};
 				$.ajax( ajaxurl + '?action=social_rocket_recalc_all', {
 					type: 'POST',

@@ -5,7 +5,7 @@ Tags: social share, social buttons, social share buttons, social media, share co
 Requires at least: 4.4
 Tested up to: 6.9
 Requires PHP: 5.5
-Stable tag: 1.3.4.2
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,11 +82,9 @@ Support is just a click away on [our website](https://wpsocialrocket.com/support
 
 
 == Changelog ==
-= 1.3.4.2 =
-* UPDATE: style changes required by wordpress.org.
-
-= 1.3.4.1 =
-* FIX: sanitization issues, nonce checking.
+= 1.3.5 =
+* FIX: sanitization, nonce checking.
+* FIX: some broken links to documentation site.
 
 = 1.3.4 =
 * FIX: sanitization issues with Click To Tweet settings.
