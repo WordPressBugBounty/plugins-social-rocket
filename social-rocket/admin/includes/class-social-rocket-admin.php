@@ -4573,10 +4573,18 @@ class Social_Rocket_Admin {
 	}
 	
 	
+	/**
+	 * Enqueue admin styles.
+	 *
+	 * @version 1.3.6
+	 * @since   1.0.0
+	 */
 	public function enqueue_styles() {
-		
 		global $pagenow;
+		
 		$SR = Social_Rocket::get_instance();
+		
+		$custom_css = '';
 		
 		if ( ! $SR->settings['disable_fontawesome'] ) {
 			wp_enqueue_style(
@@ -4598,7 +4606,24 @@ class Social_Rocket_Admin {
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'social_rocket_admin', plugin_dir_url( dirname( __FILE__ ) ) . 'css/admin.css', array(), SOCIAL_ROCKET_VERSION, 'all' );
 		
-		$custom_css = '';
+		if ( $pagenow === 'edit.php' ) {
+			$custom_css .= "
+				/* force the parent container to overflow cleanly */
+				#posts-filter {
+					clear: both;
+					overflow-x: auto !important;
+				}
+				/* give the table breathing room if columns exceed screen width */
+				.wp-list-table.posts {
+					table-layout: auto !important;
+					width: 100% !important;
+				}
+				/* protect our column */
+				.wp-list-table .column-social_rocket_shares {
+					min-width: 110px !important;
+				}
+			";
+		}
 		
 		wp_add_inline_style( 'social_rocket_admin', apply_filters( 'social_rocket_admin_custom_css', $custom_css ) );
 		

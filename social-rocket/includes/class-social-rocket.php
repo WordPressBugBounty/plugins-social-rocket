@@ -2,6 +2,12 @@
 // Exit if accessed directly
 if ( ! defined('ABSPATH') ) { exit; }
 
+/**
+ * Class Social_Rocket.
+ *
+ * @package   social-rocket
+ * @copyright Copyright (c) 2026 Social Rocket
+ */
 class Social_Rocket {
 
     
@@ -1708,7 +1714,7 @@ class Social_Rocket {
 	 * Social_Rocket::maybe_insert_inline_buttons(), via the shortcode
 	 * [socialrocket], or via the global function socal_rocket().
 	 *
-	 * @version 1.3.4.2
+	 * @version 1.3.6
 	 * @since   1.0.0
 	 *
 	 * @param array $args {
@@ -1804,7 +1810,7 @@ class Social_Rocket {
 		// continue parsing args and/or setting defaults
 		// 2) heading text
 		if ( isset( $args['heading'] ) ) {
-			$heading = $args['heading'];
+			$heading = sanitize_text_field( wp_unslash( $args['heading'] ) );
 		} else {
 			$heading = $this->_isset( $settings['heading_text'], '' );
 			$heading = apply_filters( 'social_rocket_inline_heading_text', $heading );
@@ -1934,8 +1940,8 @@ class Social_Rocket {
 		
 		// heading text
 		if ( $heading > '' ) {
-			$heading_element = $this->_isset( $settings['heading_element'], 'h4' );
-			$output .= "<$heading_element class=\"social-rocket-buttons-heading\">$heading</$heading_element>";
+			$heading_element = tag_escape( $this->_isset( $settings['heading_element'], 'h4' ) );
+			$output .= '<' . $heading_element . ' class="social-rocket-buttons-heading">' . esc_html( $heading ) . '</' . $heading_element . '>';
 		}
 		
 		// begin button bar wrapper
